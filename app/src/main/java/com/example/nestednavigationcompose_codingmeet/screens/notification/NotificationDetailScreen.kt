@@ -14,7 +14,7 @@ import androidx.navigation.NavController
 
 @Composable
 fun NotificationDetailScreen(
-    navController: NavController
+    onClickNavigateUp: () -> Unit
 ) {
     Column(
         modifier = androidx.compose.ui.Modifier
@@ -29,9 +29,7 @@ fun NotificationDetailScreen(
             color = Color.Black
         )
         Button(
-            onClick = {
-                navController.navigateUp()
-            }
+            onClick = onClickNavigateUp
         ) {
             Text(text = "Back to Main Screen", fontSize = 20.sp)
         }

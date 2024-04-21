@@ -11,12 +11,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.nestednavigationcompose_codingmeet.navigation.AuthRouteScreen
-import com.example.nestednavigationcompose_codingmeet.navigation.Graph
+import com.example.nestednavigationcompose_codingmeet.navigation.graphs.AuthGraph
+import com.example.nestednavigationcompose_codingmeet.navigation.graphs.Graph
 
 @Composable
 fun SettingDetailScreen(
-    rootNavController: NavController
+    onClickAuthGraph: () -> Unit
 ) {
     Column(
         modifier = androidx.compose.ui.Modifier
@@ -31,14 +31,7 @@ fun SettingDetailScreen(
             color = Color.Black
         )
         Button(
-            onClick = {
-                rootNavController.navigate(AuthRouteScreen.Login.route){
-                    popUpTo(Graph.MAIN_SCREEN_GRAPH){
-                        inclusive = true
-                    }
-                    launchSingleTop = true
-                }
-            }
+            onClick = onClickAuthGraph
         ) {
             Text(text = "Go to Login", fontSize = 20.sp)
         }

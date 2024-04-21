@@ -12,41 +12,41 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun BottomNavigationBar(
-    items: List<NavigationItem>,
+    items: List<BottomNavigationDestination>,
     currentRoute: String?,
-    onClick: (NavigationItem) -> Unit,
+    onClickItem: (BottomNavigationDestination) -> Unit,
 ) {
-    NavigationBar(
-//        containerColor= Color.Blue
-    ) {
-        items.forEach {navigationItem ->
+    NavigationBar {
+        items.forEach { bottomNavigationItem ->
             NavigationBarItem(
-                colors = NavigationBarItemDefaults.colors(
-                ),
-                selected = currentRoute == navigationItem.route,
-                onClick = { onClick(navigationItem) },
+                selected = currentRoute == bottomNavigationItem.route,
+                onClick = { onClickItem(bottomNavigationItem) },
                 icon = {
-                    BadgedBox(badge = {
-                        if (navigationItem.badgeCount != null) {
-                            Badge {
-                                Text(text = navigationItem.badgeCount.toString())
+                    BadgedBox(
+                        badge = {
+                            if (bottomNavigationItem.badgeCount != null) {
+                                Badge {
+                                    Text(text = bottomNavigationItem.badgeCount.toString())
+                                }
+                            } else if (bottomNavigationItem.hasBadgeDot) {
+                                Badge()
                             }
-                        } else if (navigationItem.hasBadgeDot) {
-                            Badge()
                         }
-                    }) {
+                    ) {
                         Icon(
-                            imageVector = if (currentRoute == navigationItem.route) {
-                                navigationItem.selectedIcon
+                            imageVector = if (currentRoute == bottomNavigationItem.route) {
+                                bottomNavigationItem.selectedIcon
                             } else {
-                                navigationItem.unSelectedIcon
-                            }, contentDescription = navigationItem.title
+                                bottomNavigationItem.unSelectedIcon
+                            }, contentDescription = bottomNavigationItem.title
                         )
                     }
-                }, label = {
-                    Text(text = navigationItem.title)
                 },
-                alwaysShowLabel = false)
+                label = {
+                    Text(text = bottomNavigationItem.title)
+                },
+                alwaysShowLabel = false
+            )
         }
     }
 } 

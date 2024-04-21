@@ -14,16 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.nestednavigationcompose_codingmeet.navigation.SettingRouteScreen
+import com.example.nestednavigationcompose_codingmeet.navigation.graphs.SettingGraph
 
 @Composable
 fun SettingScreen(
-    navController: NavController,
-    innerPadding: PaddingValues
+    modifier: Modifier = Modifier,
+    onClickSettingDetail: () -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .padding(innerPadding)
+        modifier = modifier
             .fillMaxSize()
             .background(Color.Cyan),
         verticalArrangement = Arrangement.Center,
@@ -35,9 +34,7 @@ fun SettingScreen(
             color = Color.Black
         )
         Button(
-            onClick = {
-                navController.navigate(SettingRouteScreen.SettingDetail.route)
-            }
+            onClick = onClickSettingDetail
         ) {
             Text(text = "Go to Setting Detail Page", fontSize = 20.sp)
         }

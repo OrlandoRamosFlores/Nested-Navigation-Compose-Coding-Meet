@@ -14,16 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.nestednavigationcompose_codingmeet.navigation.NotificationRouteScreen
+import com.example.nestednavigationcompose_codingmeet.navigation.graphs.Graph
+import com.example.nestednavigationcompose_codingmeet.navigation.graphs.NotificationGraph
 
 @Composable
 fun NotificationScreen(
-    navController: NavController,
-    innerPadding: PaddingValues
+    modifier: Modifier = Modifier,
+    onClickNotificationDetail: () -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .padding(innerPadding)
+        modifier = modifier
             .fillMaxSize()
             .background(Color.Yellow),
         verticalArrangement = Arrangement.Center,
@@ -35,9 +35,7 @@ fun NotificationScreen(
             color = Color.Black
         )
         Button(
-            onClick = {
-                navController.navigate(NotificationRouteScreen.NotificationDetail.route)
-            }
+            onClick = onClickNotificationDetail
         ) {
             Text(text = "Go to Notification Detail Page", fontSize = 20.sp)
         }
