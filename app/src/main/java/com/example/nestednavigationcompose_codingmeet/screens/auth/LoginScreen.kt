@@ -23,14 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.nestednavigationcompose_codingmeet.R
-import com.example.nestednavigationcompose_codingmeet.navigation.AuthRouteScreen
-import com.example.nestednavigationcompose_codingmeet.navigation.Graph
 
 @Composable
 fun LoginScreen(
-    navController: NavController
+    onClickMainScreenGraph: () -> Unit = {},
+    onClickSignUpScreen: () -> Unit = {},
+    onClickForgotPasswordScreen: () -> Unit = {}
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -74,11 +73,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = {
-                navController.navigate(Graph.MAIN_SCREEN_GRAPH){
-                    popUpTo(AuthRouteScreen.Login.route){inclusive = true}
-                }
-            },
+            onClick = onClickMainScreenGraph,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -89,9 +84,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(
-            onClick = {
-                navController.navigate(AuthRouteScreen.SignUp.route)
-            },
+            onClick = onClickSignUpScreen,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -102,9 +95,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         TextButton(
-            onClick = {
-                navController.navigate(AuthRouteScreen.Forget.route)
-            },
+            onClick = onClickForgotPasswordScreen,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
