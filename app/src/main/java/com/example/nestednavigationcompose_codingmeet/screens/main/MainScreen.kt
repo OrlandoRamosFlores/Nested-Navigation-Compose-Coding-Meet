@@ -21,38 +21,24 @@ import com.example.nestednavigationcompose_codingmeet.utils.bottomNavigationItem
 @Composable
 fun MainScreen(
     rootNavHostController: NavHostController,
-    homeNavController : NavHostController = rememberNavController()
+    homeNavController: NavHostController = rememberNavController()
 ) {
 
-    val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
-    val currentRoute by remember(navBackStackEntry) {
-        derivedStateOf {
-            navBackStackEntry?.destination?.route
-        }
-    }
-
-    val topBarTitle by remember(currentRoute) {
-        derivedStateOf {
-            if (currentRoute != null) {
-                bottomNavigationItemsList[bottomNavigationItemsList.indexOfFirst {
-                    it.route == currentRoute
-                }].title
-            } else {
-                bottomNavigationItemsList[0].title
-            }
-        }
-    }
+    val currentHomeBackStackEntry by homeNavController.currentBackStackEntryAsState()
+    val currentDestination = currentHomeBackStackEntry?.destination
+    val currentScreen = bottomNavigationItemsList.find { it.route == currentDestination?.route }
+        ?: bottomNavigationItemsList[0]
 
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = topBarTitle)
+                Text(text = currentScreen.title)
             })
         },
         bottomBar = {
             BottomNavigationBar(
                 items = bottomNavigationItemsList,
-                currentRoute = currentRoute
+                currentRoute = currentScreen.route
             ) { currentNavigationItem ->
                 homeNavController.navigate(currentNavigationItem.route) {
                     // Pop up to the start destination of the graph to
